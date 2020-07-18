@@ -1,5 +1,5 @@
 // This is basically a beginner understanding on the Big O concepts 
-// problem : Find Nemo 
+// problem : Find Nemo - to understand - Time Complexity - O(n)
 #include<iostream>
 #include <string>
 #include<chrono>
@@ -7,11 +7,13 @@
 using namespace std;
 using namespace std::chrono;
 // What does this do ? 
-// It is a program to find whether Nemo Exist in the array or not
+/*We will have 3 arrays of Size of 5,100,1000. On these array we need to find nemo.
+  We will user a timer to measure the time taken for finding the element "nemo".
+  We can see that has the number of elements increases the time taken will also increase.
+  Here I have considered the worst case scenario - What happens if the element we need is at the last ? It needs to travell through all the elements to reach the last*/
 int main()
 {
- array<string,5>FishArray = {"Nemo","Dory","Marlin","Bloat","Gill"};
-  //timer starts to measure the time taken 
+ array<string,5>FishArray = {"Gill","Dory","Marlin","Bloat","Nemo"};
   auto start = high_resolution_clock::now();
   for(auto it: FishArray)
   {
@@ -24,15 +26,12 @@ int main()
   auto end = high_resolution_clock::now();
   auto duration =duration_cast<microseconds>(end-start);
   cout<<"Time Taken to find Nemo of FishArray size of 5 : "<<duration.count()<<" microseconds"<<endl;
-
-// In this case of Fish Array - It took 64 microseconds to find nemo which is the first element 
-// Lets check the same if nemo is the last element of a big array
- array<string,100>FishArray1;
-FishArray1.fill("Dory");
-FishArray1[99] = "Nemo";
-
-  //timer starts to measure the time taken 
-  auto start1 = high_resolution_clock::now();
+ 
+  // Lets check the same if nemo is the last element of a big array
+  array<string,100>FishArray1;
+  FishArray1.fill("Dory"); // filling 100 elements with dory and replacing the last with nemo
+   FishArray1[99] = "Nemo";
+  start = high_resolution_clock::now();
   for(auto it: FishArray1)
   {
     if(it == "Nemo")
@@ -41,17 +40,15 @@ FishArray1[99] = "Nemo";
       break;
     }
   }
-  auto end1 = high_resolution_clock::now();
-  auto duration1 =duration_cast<microseconds>(end1-start1);
-  cout<<"Time Taken to find Nemo of FishArray1 size of 100 : "<<duration1.count()<<" microseconds"<<endl;
+  end = high_resolution_clock::now();
+  duration =duration_cast<microseconds>(end-start);
+  cout<<"Time Taken to find Nemo of FishArray1 size of 100 : "<<duration.count()<<" microseconds"<<endl;
 
-// What if we do the same with array size of 1000?
- array<string,1000>FishArray2;
-FishArray2.fill("Dory");
-FishArray2[999] = "Nemo";
-
-  //timer starts to measure the time taken 
-  auto start2 = high_resolution_clock::now();
+  // What if we do the same with array size of 1000?
+  array<string,1000>FishArray2;
+  FishArray2.fill("Dory");
+  FishArray2[999] = "Nemo";
+  start = high_resolution_clock::now();
   for(auto it: FishArray2)
   {
     if(it == "Nemo")
@@ -60,9 +57,18 @@ FishArray2[999] = "Nemo";
       break;
     }
   }
-  auto end2 = high_resolution_clock::now();
-  auto duration2 =duration_cast<microseconds>(end2-start2);
-  cout<<"Time Taken to find Nemo of FishArray2 size of 1000: "<<duration2.count()<<" microseconds"<<endl;
+  end = high_resolution_clock::now();
+  duration =duration_cast<microseconds>(end-start);
+  cout<<"Time Taken to find Nemo of FishArray2 size of 1000: "<<duration.count()<<" microseconds"<<endl;
 
-// This is a classic example of O(n) time complexity-- As the number of elements inreases the time taken to find also increases
+  // This is a classic example of O(n) time complexity-- As the number of elements inreases the time taken to find also increases
+  /*Output
+  Found Nemo of FishArray
+  Time Taken to find Nemo of FishArray size of 5 : 53 microseconds
+  Found Nemo of FishArray1
+  Time Taken to find Nemo of FishArray1 size of 100 : 184 microseconds
+  Found Nemo FishArray2
+  Time Taken to find Nemo of FishArray2 size of 1000: 301 microseconds*/
+  // Note the time taken depends upon the processor , Ram and other factors
+
 }
